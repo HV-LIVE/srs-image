@@ -79,13 +79,14 @@
 
 # 配置列表
 
-| 环境变量         | 默认值   | 说明               |
-| ---------------- | -------- | ------------------ |
-| HV_RTMP_PORT     | 11935    | 直播 RTMP 端口     |
-| HV_API_PORT      | 11985    | API 端口           |
-| HV_API_USERNAME  | admin    | API 账号           |
-| HV_API_PASSWORD  | kGT1ypLN | API 密码           |
-| HV_HTTP_PORT     | 18080    | HTTP 端口          |
-| HV_HLS_FRAGMENT  | 2        | HLS 分片的长度     |
-| HV_HLS_WINDOW    | 10       | HLS 播放列表的长度 |
-| HV_DASH_FRAGMENT | 2        | DASH 分片的长度    |
+| 环境变量          | 默认值   | 说明               |
+| ----------------- | -------- | ------------------ |
+| HV_RTMP_PORT      | 11935    | 直播 RTMP 端口     |
+| HV_API_PORT       | 11985    | API 端口           |
+| HV_API_USERNAME   | admin    | API 账号           |
+| HV_API_PASSWORD   | kGT1ypLN | API 密码           |
+| HV_HTTP_PORT      | 18080    | HTTP 端口          |
+| HV_HLS_FRAGMENT   | 2        | HLS 分片的长度     |
+| HV_HLS_WINDOW     | 10       | HLS 播放列表的长度 |
+| HV_DASH_FRAGMENT  | 2        | DASH 分片的长度    |
+| HV_DASH_TIMESHIFT | 300      | DASH TIMESHIFT     |
