@@ -30,6 +30,9 @@ def load_env_vars() -> Dict[str, str]:
         if 'ENV' in config:
             for key in config['ENV']:
                 result[key.upper()] = config['ENV'][key]
+        if 'ENV_LIST' in config:
+            for key in config['ENV_LIST']:
+                result[key.upper()] = list(filter(None, config['ENV_LIST'][key].split('\n')))
     return result
 
 
