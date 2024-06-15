@@ -2,6 +2,12 @@
 
 - [srs](https://github.com/ossrs/srs)
 
+# 编译镜像
+
+```
+docker build -t hvlive/srs:latest .
+```
+
 # 功能
 
 - RTMP 协议直播推流与播放
@@ -23,9 +29,18 @@
 
 - 部署命令
 
-  ```bash
+  ```sh
+  # HTTP
   docker run -d --restart=always --name srs \
           -p 11935:11935 -p 11985:11985 -p 18080:18080 \
+          hvlive/srs:latest
+
+  # HTTPS
+  docker run -d --restart=always --name srs \
+          -p 11935:11935 -p 11985:11985 -p 18080:18080 \
+          -v {host_cert_path}:{container_cert_path} \
+          -e HV_HTTPS_CERT={container_cert_path}/{pem_file} \
+          -e HV_HTTPS_CERT_KEY={container_cert_path}/{key_file} \
           hvlive/srs:latest
   ```
 
@@ -46,14 +61,14 @@
 
 - FFmpeg 推流命令
 
-  ```bash
+  ```sh
   # 推流本地视频文件
   ffmpeg -stream_loop -1 -re -i "{本地视频路径}" -c:v copy -c:a copy -f flv {rtmp_full_url}
   ```
 
 - FFmpeg 播放命令
 
-  ```bash
+  ```sh
   ffplay -fflags nobuffer {rtmp_full_url}
   ```
 
@@ -79,14 +94,16 @@
 
 # 配置列表
 
-| 环境变量          | 默认值   | 说明               |
-| ----------------- | -------- | ------------------ |
-| HV_RTMP_PORT      | 11935    | 直播 RTMP 端口     |
-| HV_API_PORT       | 11985    | API 端口           |
-| HV_API_USERNAME   | admin    | API 账号           |
-| HV_API_PASSWORD   | kGT1ypLN | API 密码           |
-| HV_HTTP_PORT      | 18080    | HTTP 端口          |
-| HV_HLS_FRAGMENT   | 2        | HLS 分片的长度     |
-| HV_HLS_WINDOW     | 10       | HLS 播放列表的长度 |
-| HV_DASH_FRAGMENT  | 2        | DASH 分片的长度    |
-| HV_DASH_TIMESHIFT | 300      | DASH TIMESHIFT     |
+| 环境变量          | 默认值   | 说明                                                 |
+| ----------------- | -------- | ---------------------------------------------------- |
+| HV_RTMP_PORT      | 11935    | 直播 RTMP 端口                                       |
+| HV_API_PORT       | 11985    | API 端口                                             |
+| HV_API_USERNAME   | admin    | API 账号                                             |
+| HV_API_PASSWORD   | kGT1ypLN | API 密码                                             |
+| HV_HTTP_PORT      | 18080    | 容器内的 HTTP 端口（如果指定了证书就是 HTTPS 端口）  |
+| HV_HTTPS_CERT     |          | 容器内的证书 pem 文件路径（指定后会开启 HTTPS 协议） |
+| HV_HTTPS_CERT_KEY |          | 容器内的证书 key 文件路径（指定后会开启 HTTPS 协议） |
+| HV_HLS_FRAGMENT   | 2        | HLS 分片的长度                                       |
+| HV_HLS_WINDOW     | 10       | HLS 播放列表的长度                                   |
+| HV_DASH_FRAGMENT  | 2        | DASH 分片的长度                                      |
+| HV_DASH_TIMESHIFT | 300      | DASH TIMESHIFT                                       |

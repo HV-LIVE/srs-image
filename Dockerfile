@@ -1,4 +1,4 @@
-FROM ossrs/srs:v5.0.166
+FROM ossrs/srs:v5.0.210
 
 RUN apt-get update && \
     apt-get install -y python3 python3-pip && \
